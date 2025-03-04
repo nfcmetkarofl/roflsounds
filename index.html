@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Music Player</title>
+</head>
+<body>
+    <audio id="audioPlayer" controls autoplay>
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Получаем параметр из URL
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const trackId = urlParams.get('track');
+
+        // Проверяем наличие параметра
+        if(trackId) {
+            const audioPlayer = document.getElementById('audioPlayer');
+            
+            // Формируем путь к аудиофайлу (можно изменить расширение)
+            audioPlayer.src = ${trackId}.mp3;
+            
+            // Попытка автоматического запуска (может не работать в некоторых браузерах)
+            audioPlayer.play().catch(error => {
+                console.log('Автовоспроизведение заблокировано. Нажмите кнопку play.');
+            });
+        } else {
+            document.body.innerHTML = "<h1>Укажите параметр track в URL (например: ?track=42)</h1>";
+        }
+    </script>
+</body>
+</html>
